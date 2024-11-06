@@ -11,7 +11,7 @@ var1 = StringVar()
 ms1 = Message(win, textvariable = var1, relief = RAISED, width=600, bd = 5, cursor = 'heart')
 ms1.config(font = ('mitra', 12), pady=5, bg = 'white', fg = 'black')
 ms1.pack(anchor = N, pady=(10, 5))
-var1.set('This is a simple Paint window that created by farshad257\nEmail: farshadtfgh@gamil.com\nHelp :\nClick Left Mouce and Drag to draw Point\nClick Right Mouce and drag to draw Rectangle\nClick the Cursor and drag it to draw Triangle')
+var1.set('This is a simple Paint window that created by farshad257\nEmail: farshadtfgh@gamil.com\nHelp :\nClick Left Mouce and Drag to draw Point\nClick Right Mouce and drag to draw Rectangle\nClick the Cursor and drag it to draw Triangle\nCtrl + Click Mouce Erase respectively')
 
 outline_color = 'black'
 fill_color = 'white'
@@ -68,10 +68,36 @@ def triangle(event):
 	y3 = event.y + 30
 	c.create_polygon(x1, y1, x2, y2, x3, y3, outline = outline_color, fill = fill_color, width = 2)
 
+def pointerase(event):
+	x1 = event.x - 1
+	y1 = event.y - 1
+	x2 = event.x + 1
+	y2 = event.y + 1
+	c.create_oval(x1,y1,x2,y2, outline = 'white', fill = 'white')
+
+def rectangleerase(event):
+	x1 = event.x
+	y1 = event.y
+	x2 = event.x + 50
+	y2 = event.y + 25
+
+	c.create_rectangle(x1, y1, x2, y2, outline = 'white', fill = 'white', width = 2)
+
+def triangleerase(event):
+	x1 = event.x
+	y1 = event.y
+	x2 = event.x - 20
+	y2 = event.y + 30
+	x3 = event.x + 20
+	y3 = event.y + 30
+	c.create_polygon(x1, y1, x2, y2, x3, y3, outline = 'white', fill = 'white', width = 2)
 
 
 c.bind('<B1-Motion>', point)
 c.bind('<B2-Motion>', triangle)
 c.bind('<B3-Motion>', rectangle)
+c.bind('<Control-B1-Motion>', pointerase)
+c.bind('<Control-B2-Motion>', triangleerase)
+c.bind('<Control-B3-Motion>', rectangleerase)
 
 win.mainloop()
